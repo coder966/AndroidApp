@@ -1,0 +1,49 @@
+apply plugin: 'com.android.library'
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'AndroidApp'
+
+    publishedGroupId = 'net.coder966.AndroidApp'
+    libraryName = 'library'
+    artifact = 'library'
+
+    libraryDescription = 'Android library that features onUpgrade method for Application class'
+
+    siteUrl = 'http://coder966.net'
+    gitUrl = 'https://github.com/coder966/AndroidApp.git'
+
+    libraryVersion = '1.0.0'
+
+    developerId = 'coder966'
+    developerName = 'Khalid Alharisi'
+    developerEmail = 'coder966@gmail.com'
+
+    licenseName = 'The GNU General Public License, Version 3.0'
+    licenseUrl = 'https://www.gnu.org/licenses/gpl-3.0.txt'
+    allLicenses = ["GPL-3.0"]
+}
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        minSdkVersion 9
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+}
+
+apply from: '../gradle/./installv.gradle'
+apply from: '../gradle/./bintrayv.gradle'
