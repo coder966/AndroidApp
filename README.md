@@ -11,14 +11,14 @@ This library requires at minimum Android 2.3.
 <dependency>
   <groupId>net.coder966.AndroidApp</groupId>
   <artifactId>library</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <type>pom</type>
 </dependency>
 ```
 
 **Gradle**
 ```gradle
-compile 'net.coder966.AndroidApp:library:1.0.0'
+compile 'net.coder966.AndroidApp:library:1.0.1'
 ```
 
 Usage
