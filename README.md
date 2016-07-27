@@ -1,6 +1,9 @@
 AndroidApp
 ===
-Android library that features `onUpgrade` method for `Application` class.
+Android library that features these extra methods for `Application` class:
+* `onCreate(int, String)`
+* `onUpgradeBeforeOnCreate(int, String)`
+* `onUpgradeAfterOnCreate(int, String)`
 
 Installation
 ---
@@ -11,21 +14,22 @@ This library requires at minimum Android 2.3.
 <dependency>
   <groupId>net.coder966.AndroidApp</groupId>
   <artifactId>library</artifactId>
-  <version>1.0.1</version>
+  <version>2.0.0</version>
   <type>pom</type>
 </dependency>
 ```
 
 **Gradle**
 ```gradle
-compile 'net.coder966.AndroidApp:library:1.0.1'
+compile 'net.coder966.AndroidApp:library:2.0.0'
 ```
 
 Usage
 ---
-Instead of inheriting `Application` class, inherit `AndroidApp` and you are done!
-
-The method `onUpgrade` will be called only if the application has been updated, and it has 2 arguments, the old version code and the new one.
+* Inherit `AndroidApp` class instead of `Application`
+* Override `onCreate(int, String)` method instead of `onCreate()`
+* When the application gets updated, the method `onUpgradeBeforeOnCreate(int, int)` will be called right before your `onCreate(int, String)`
+* When the application gets updated, the method `onUpgradeAfterOnCreate(int, int)` will be called right after your `onCreate(int, String)`
 
 License
 ---
