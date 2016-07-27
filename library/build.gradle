@@ -19,9 +19,9 @@ ext {
     developerName = 'Khalid Alharisi'
     developerEmail = 'coder966@gmail.com'
 
-    licenseName = 'The GNU General Public License, Version 3.0'
-    licenseUrl = 'https://www.gnu.org/licenses/gpl-3.0.txt'
-    allLicenses = ["GPL-3.0"]
+    licenseName = 'Apache License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0'
+    allLicenses = ["Apache-2.0"]
 }
 
 android {

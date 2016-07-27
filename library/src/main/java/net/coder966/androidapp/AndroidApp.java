@@ -1,11 +1,11 @@
 /*
- * Copyright 2016 Khalid Alharisi
+ * Copyright 2016 Khalid H. Alharisi
  *
- * Licensed under the GNU General Public License v3.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     https://www.gnu.org/licenses/gpl-3.0.txt
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
