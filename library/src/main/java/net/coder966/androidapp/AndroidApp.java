@@ -47,7 +47,7 @@ public abstract class AndroidApp extends Application {
         int previousVersionCode = pref.getInt(PREF_NAME, 0);
         int currentVersionCode;
         String currentVersionName;
-        try{
+        try {
             PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             currentVersionCode = packageInfo.versionCode;
             currentVersionName = packageInfo.versionName;
@@ -55,23 +55,25 @@ public abstract class AndroidApp extends Application {
             // handle fresh installation
             long firstInstallTime = packageInfo.firstInstallTime;
             long lastUpdateTime = packageInfo.lastUpdateTime;
-            if(firstInstallTime == lastUpdateTime){
+            if (firstInstallTime == lastUpdateTime) {
                 onCreate(currentVersionCode, currentVersionName);
                 return;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             currentVersionCode = 0;
             currentVersionName = "0";
         }
 
-        if(previousVersionCode < currentVersionCode){
+        if (previousVersionCode < currentVersionCode) {
             // save current installed version code
             pref.edit().putInt(PREF_NAME, currentVersionCode).apply();
 
             onUpgradeBeforeOnCreate(previousVersionCode, currentVersionCode);
             onCreate(currentVersionCode, currentVersionName);
             onUpgradeAfterOnCreate(previousVersionCode, currentVersionCode);
+        } else {
+            onCreate(currentVersionCode, currentVersionName);
         }
     }
 
@@ -81,7 +83,7 @@ public abstract class AndroidApp extends Application {
      * @param currentVersionCode Currently installed version code.
      * @param currentVersionName Currently installed version name.
      */
-    public void onCreate(int currentVersionCode, String currentVersionName){
+    public void onCreate(int currentVersionCode, String currentVersionName) {
 
     }
 
@@ -91,7 +93,7 @@ public abstract class AndroidApp extends Application {
      * @param oldVersionCode Previously installed version code.
      * @param newVersionCode Currently installed version code.
      */
-    public void onUpgradeBeforeOnCreate(int oldVersionCode, int newVersionCode){
+    public void onUpgradeBeforeOnCreate(int oldVersionCode, int newVersionCode) {
 
     }
 
@@ -101,7 +103,7 @@ public abstract class AndroidApp extends Application {
      * @param oldVersionCode Previously installed version code.
      * @param newVersionCode Currently installed version code.
      */
-    public void onUpgradeAfterOnCreate(int oldVersionCode, int newVersionCode){
+    public void onUpgradeAfterOnCreate(int oldVersionCode, int newVersionCode) {
 
     }
 
