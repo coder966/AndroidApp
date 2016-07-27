@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.coder966.androidapp;
 
 import android.app.Application;
@@ -20,47 +21,87 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 
 /**
- * A class that inherits `Application` class to feature `onUpgrade` method
+ * A class that inherits {@link Application} to feature:
+ * {@link #onCreate(int, String)}
+ * {@link #onUpgradeBeforeOnCreate(int, int)}
+ * {@link #onUpgradeAfterOnCreate(int, int)}
  *
  * @author Khalid H. Alharisi
+ * @link coder966.net
  */
 public abstract class AndroidApp extends Application {
     private final String PREF_FILE_NAME = "VERSION_CONTROLLER";
     private final String PREF_NAME = "INSTALLED_VERSION";
 
+    /**
+     * Use {@link #onCreate(int, String)} instead.
+     */
     @Override
-    public void onCreate() {
+    public final void onCreate() {
         super.onCreate();
 
+        // load data file
         SharedPreferences pref = getSharedPreferences(PREF_FILE_NAME, MODE_PRIVATE);
-        int previousVersion = pref.getInt(PREF_NAME, 0);
 
-        int thisVersion;
+        // get info
+        int previousVersionCode = pref.getInt(PREF_NAME, 0);
+        int currentVersionCode;
+        String currentVersionName;
         try{
-            PackageInfo packageInfo = getPackageManager().getPackageInfo(this.getPackageName(), 0);
+            PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            currentVersionCode = packageInfo.versionCode;
+            currentVersionName = packageInfo.versionName;
 
+            // handle fresh installation
             long firstInstallTime = packageInfo.firstInstallTime;
             long lastUpdateTime = packageInfo.lastUpdateTime;
             if(firstInstallTime == lastUpdateTime){
-                return; // handle fresh installation
+                onCreate(currentVersionCode, currentVersionName);
             }
-
-            thisVersion = packageInfo.versionCode;
         }catch (Exception e){
-            thisVersion = 0;
+            e.printStackTrace();
+            currentVersionCode = 0;
+            currentVersionName = "0";
         }
 
-        if(previousVersion != thisVersion){
-            onUpgrade(previousVersion, thisVersion);
-            pref.edit().putInt(PREF_NAME, thisVersion).commit();
+        if(previousVersionCode < currentVersionCode){
+            // save current installed version code
+            pref.edit().putInt(PREF_NAME, currentVersionCode).apply();
+
+            onUpgradeBeforeOnCreate(previousVersionCode, currentVersionCode);
+            onCreate(currentVersionCode, currentVersionName);
+            onUpgradeAfterOnCreate(previousVersionCode, currentVersionCode);
         }
     }
 
     /**
-     * This method will be called only if the application has been updated
+     * Use this method instead of {@link #onCreate()}.
      *
-     * @param oldVersionCode previously installed version
-     * @param newVersionCode current installed version
+     * @param currentVersionCode Currently installed version code.
+     * @param currentVersionName Currently installed version name.
      */
-    public abstract void onUpgrade(int oldVersionCode, int newVersionCode);
+    public void onCreate(int currentVersionCode, String currentVersionName){
+
+    }
+
+    /**
+     * When the application gets updated, this method will be called right before your {@link #onCreate(int, String)}.
+     *
+     * @param oldVersionCode Previously installed version code.
+     * @param newVersionCode Currently installed version code.
+     */
+    public void onUpgradeBeforeOnCreate(int oldVersionCode, int newVersionCode){
+
+    }
+
+    /**
+     * When the application gets updated, this method will be called right after your {@link #onCreate(int, String)}.
+     *
+     * @param oldVersionCode Previously installed version code.
+     * @param newVersionCode Currently installed version code.
+     */
+    public void onUpgradeAfterOnCreate(int oldVersionCode, int newVersionCode){
+
+    }
+
 }
