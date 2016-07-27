@@ -14,14 +14,14 @@ This library requires at minimum Android 2.3.
 <dependency>
   <groupId>net.coder966.AndroidApp</groupId>
   <artifactId>library</artifactId>
-  <version>2.0.1</version>
+  <version>2.0.2</version>
   <type>pom</type>
 </dependency>
 ```
 
 **Gradle**
 ```gradle
-compile 'net.coder966.AndroidApp:library:2.0.1'
+compile 'net.coder966.AndroidApp:library:2.0.2'
 ```
 
 Usage

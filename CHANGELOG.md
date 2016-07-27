@@ -1,6 +1,9 @@
 Changelog
 -
 
+### v2.0.2 (28-7-2016)
+* [Fixed] onCreate(int, int) never get called when the app starts normally not after upgrading
+
 ### v2.0.1 (27-7-2016)
 * [Fixed] onCreate(int, int) gets called twice after fresh installation
 
