@@ -57,6 +57,7 @@ public abstract class AndroidApp extends Application {
             long lastUpdateTime = packageInfo.lastUpdateTime;
             if(firstInstallTime == lastUpdateTime){
                 onCreate(currentVersionCode, currentVersionName);
+                return;
             }
         }catch (Exception e){
             e.printStackTrace();
